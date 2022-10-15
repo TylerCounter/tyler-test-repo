@@ -1,0 +1,24 @@
+Jenkins Sever'a:
+ "cloudformation plugin" yüklemek gerekiyor ve
+"cloudformation full access" role atamak gerekiyor.
+
+1 . cloudformation template: us-east-1'da bir ec2 instance ayağa kaldırıyor (T3aMedium) (daha küçün boyutta bir instancta çalışmayablir)
+    userdata:   docker, minikube, kubectl ve helm kuruyor.
+
+
+2. Jenkisnfile:
+    1. stage: uygulamnın deploy edileceği Infrastructureı CF ile ayağa kaldırıyor. (test edildi çalışıyor)
+    2. stage: ec2 instance ready olana kadar beklenmesini sağlıyor. (testedildi, çalışıyor)
+    3. stage: uygulamayı helm kullanarak instance'a deploy ediyor (DEĞİŞTİRİLMESİ LAZIM, TEST EDİLMEDİ)
+
+Note; eğer hemen göndermen gerekiyorsa;
+        1. düzgün isimli bir github reposu aç (public),(mesela,  serkan-devops-task)
+        2. bu reponun altında;
+           CF template,
+           Jenkinsfile,
+           Uygulamanın yml dosyaları
+           helm hali olsun
+
+        3. reponun README kısmıdada yaptığın task hakkında birkaç bilgi yaz, benim yukarıda yazdığıma benze
+
+        elemanlarada istediği dosyaları gönder ama isterseniz taskı repodan clonelayabilirsiniz diye not düş

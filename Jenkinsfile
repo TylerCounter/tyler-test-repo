@@ -8,15 +8,31 @@ pipeline{
             }
         }
     }
-    post{
-        always{
-            echo "========always========"
+
+        stage('wait the instance') {
+            steps {
+                script {
+                    echo 'Waiting for the instance'
+                    id = sh(script: 'aws ec2 describe-instances --filters Name=tag-value,Values=Kube-Master-tyler-app Name=instance-state-name,Values=running --query Reservations[*].Instances[*].[InstanceId] --output text',  returnStdout:true).trim()
+                    sh 'aws ec2 wait instance-status-ok --instance-ids $id'
+                }
+            }
         }
-        success{
-            echo "========pipeline executed successfully ========"
+
+
+        stage('Deploy App on Petclinic Kubernetes Cluster'){
+            steps {
+                echo 'Deploying App on K8s Cluster'
+                // sh "helm repo add stable-petclinic s3://petclinic-helm-charts-<put-your-name>/stable/myapp/"
+                // sh "helm package k8s/petclinic_chart"
+                // sh "helm s3 push --force petclinic_chart-${BUILD_NUMBER}.tgz stable-petclinic"
+                // sh "helm repo update"
+                // sh " helm upgrade --install petclinic-app-release stable-petclinic/petclinic_chart --version ${BUILD_NUMBER} --namespace petclinic-prod-ns --kubeconfig k8s/config"
+            }
         }
-        failure{
-            echo "========pipeline execution failed========"
-        }
-    }
+
+
+
+
+
 }
