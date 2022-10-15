@@ -23,11 +23,9 @@ pipeline{
         stage('Deploy App on Petclinic Kubernetes Cluster'){
             steps {
                 echo 'Deploying App on K8s Cluster'
-                // sh "helm repo add stable-petclinic s3://petclinic-helm-charts-<put-your-name>/stable/myapp/"
-                // sh "helm package k8s/petclinic_chart"
-                // sh "helm s3 push --force petclinic_chart-${BUILD_NUMBER}.tgz stable-petclinic"
-                // sh "helm repo update"
-                // sh " helm upgrade --install petclinic-app-release stable-petclinic/petclinic_chart --version ${BUILD_NUMBER} --namespace petclinic-prod-ns --kubeconfig k8s/config"
+                sh "helm repo add to-do-app https://github.com/TylerCounter/mygithubrepo.git"
+                sh "helm repo update"
+                sh " helm upgrade --install serkan-task-app-release serkan_chart "
             }
         }
 
