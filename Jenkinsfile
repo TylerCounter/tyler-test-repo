@@ -7,7 +7,7 @@ pipeline{
                 sh "aws cloudformation create-stack --stack-name tyler-app --template-body file://cfn-template-to-create-k8s-cluster.yml --region 'us-east-1' --capabilities CAPABILITY_NAMED_IAM" 
             }
         }
-    }
+
 
         stage('wait the instance') {
             steps {
@@ -32,7 +32,7 @@ pipeline{
         }
 
 
-
+    }
 
 
 }
